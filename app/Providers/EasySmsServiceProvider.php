@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use Overtrue\EasySms\EasySms;
 use Illuminate\Support\ServiceProvider;
 
 class EasySmsServiceProvider extends ServiceProvider
