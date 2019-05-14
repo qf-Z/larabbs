@@ -32,4 +32,30 @@ class RepliesController extends Controller
 
         return $this->response()->noContent();
     }
+
+    public function index(Topic $topic, Request $request)
+    {
+        app(\Dingo\Api\Transformer\Factory::class)->disableEagerLoading();
+
+        $replies = $topic->replies()->paginate(20);
+
+        if ($request->include) {
+            $replies->load($request->include);
+        }
+
+        return $this->response->paginator($replies, new ReplyTransformer());
+    }
+
+    public function userIndex(User $user, Request $request)
+    {
+        app(\Dingo\Api\Transformer\Factory::class)->disableEagerLoading();
+
+        $replies = $user->replies()->paginate(20);
+
+        if ($request->include) {
+            $replies->load($request->include);
+        }
+
+        return $this->response->paginator($replies, new ReplyTransformer());
+    }
 }
